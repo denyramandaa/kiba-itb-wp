@@ -85,7 +85,7 @@ $homepage_slider = get_field('homepage_slider');
             while($articles->have_posts()) : $articles->the_post();
             ?>
             <div class="listing w-full lg:w-1/3 mb-6 lg:mb-0 lg:mr-4">
-                <a href="#" class="block no-underline">
+                <a href="<?php echo get_permalink() ?>" class="block no-underline">
                     <div class="flex justify-start items-start lg:justify-center lg:items-center">
                         <div class="w-1/2">
                             <div class="w-full box-ratio bg-cover bg-center" style="background-image: url('<?php echo get_the_post_thumbnail_url() ?>')"></div>
