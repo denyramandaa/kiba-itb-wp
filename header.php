@@ -37,14 +37,14 @@
 	<header class="header fixed top-0 left-0 w-full flex justify-center bg-white z-30">
 		<div class="header__inner flex justify-between lg:justify-start w-full lg:max-w-7xl mx-auto px-4">
 			<div class="header--logo relative">
-				<h1><a href="index.html"><img src="<?php bloginfo('stylesheet_directory'); ?>/assets/images/logo_12kiba.png" alt="Kiba ITB logo"></a></h1>
+				<h1><a href="<?= home_url() ?>"><img src="<?php bloginfo('stylesheet_directory'); ?>/assets/images/logo_12kiba.png" alt="Kiba ITB logo"></a></h1>
 			</div>
 			<?php
 				wp_nav_menu( array(
 					'theme_location'	=> 'primary',
-					'container'			=> 'nav',
+					'container'			=> 'div',
 					'container_class'	=> 'header__menu hidden lg:flex justify-center items-center lg:ml-8',
-					'menu_class'		=> 'header__menu--list'
+					'menu_class'		=> 'header__menu--list flex'
 				) );
 			?>
 			<div class="header__burger flex justify-center items-center cursor-pointer lg:hidden relative">
@@ -61,7 +61,7 @@
 					'theme_location'	=> 'primary',
 					'container'			=> 'nav',
 					'container_class'	=> 'header__menu flex justify-center items-center flex-col',
-					'menu_class'		=> 'header__menu--list w-2/3 text-center relative'
+					'menu_class'		=> 'header__menu--list w-2/3 text-center relative flex'
 				) );
 			?>
 		</div>

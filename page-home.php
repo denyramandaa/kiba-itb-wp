@@ -56,17 +56,22 @@ $homepage_slider = get_field('homepage_slider');
     <!-- start class -->
     <section class="class w-full lg:max-w-7xl mx-auto">
         <div class="flex pb-6 justify-between items-center px-4">
-            <h3 class="font-heading font-bold">Class</h3>
-            <a href="#">View All</a>
+            <h3 class="font-heading font-bold"><?= get_cat_name( get_cat_ID( 'class' ) ) ?></h3>
+            <a href="<?= get_category_link( get_cat_ID( 'class' ) ) ?>">View All</a>
         </div>
         <div class="flex justify-center items-center flex-wrap lg:flex-nowrap lg:px-4">
-            <div class="listing w-full lg:w-1/4 mb-4 lg:mb-0 lg:mr-4" v-for="i in 4">
-                <a href="#" class="block no-underline hover:underline">
-                    <div class="w-full horizontal-ratio bg-cover bg-center" :style="{ 'background-image': 'url(' + 'https://unsplash.it/700/480?image='+i + ')' }"></div>
-                    <p class="font-body font-bold mt-6 text-center px-4 lg:px-0">Judul Class 90 Huruf Lorem Ipsum Dolor sit Amet Consectetur Adipiscing Elit Maecenas Sempe</p>
+            <?php 
+                $class = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'class', 'posts_per_page' => 4));
+                while($class->have_posts()) : $class->the_post();
+            ?>
+            <div class="listing w-full lg:w-1/4 mb-4 lg:mb-0 lg:mr-4">
+                <a href="<?= get_permalink() ?>" class="block no-underline hover:underline">
+                    <div class="w-full horizontal-ratio bg-cover bg-center" style="background-image: url('<?= get_the_post_thumbnail_url() ?>')"></div>
+                    <p class="font-body font-bold mt-6 text-center px-4 lg:px-0"><?= get_the_title(); ?></p>
                 </a>
                 <hr class="my-8 mx-4 lg:mx-0">
             </div>
+            <?php endwhile; ?>
         </div>
     </section>
     <!-- end class -->
@@ -76,23 +81,23 @@ $homepage_slider = get_field('homepage_slider');
     <!-- start articles -->
     <section class="class w-full lg:max-w-7xl mx-auto">
         <div class="flex pb-6 justify-between items-center px-4">
-            <h3 class="font-heading font-bold">Articles</h3>
-            <a href="<?php echo get_category_link( get_cat_ID( 'articles' ) ) ?>">View All</a>
+            <h3 class="font-heading font-bold"><?= get_cat_name( get_cat_ID( 'articles' ) ) ?></h3>
+            <a href="<?= get_category_link( get_cat_ID( 'articles' ) ) ?>">View All</a>
         </div>
         <div class="flex justify-start items-center flex-wrap lg:flex-nowrap px-4">
             <?php 
-            $articles = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'articles'));
+            $articles = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'articles', 'posts_per_page' => 3));
             while($articles->have_posts()) : $articles->the_post();
             ?>
             <div class="listing w-full lg:w-1/3 mb-6 lg:mb-0 lg:mr-4">
-                <a href="<?php echo get_permalink() ?>" class="block no-underline">
+                <a href="<?= get_permalink() ?>" class="block no-underline">
                     <div class="flex justify-start items-start lg:justify-center lg:items-center">
                         <div class="w-1/2">
-                            <div class="w-full box-ratio bg-cover bg-center" style="background-image: url('<?php echo get_the_post_thumbnail_url() ?>')"></div>
+                            <div class="w-full box-ratio bg-cover bg-center" style="background-image: url('<?= get_the_post_thumbnail_url() ?>')"></div>
                         </div>
                         <div class="w-1/2 flex flex-wrap items-center p-0 lg:p-4 ml-2 lg:ml-0">
-                            <p class="font-body font-bold mb-1"><?php echo get_the_title(); ?></p>
-                            <p class="font-body"><?php echo get_the_date( 'j M Y' ); ?></p>
+                            <p class="font-body font-bold mb-1"><?= get_the_title(); ?></p>
+                            <p class="font-body"><?= get_the_date( 'j M Y' ); ?></p>
                         </div>
                     </div>
                 </a>
@@ -105,20 +110,30 @@ $homepage_slider = get_field('homepage_slider');
     <!-- start awards and research -->
     <section class="awards-and-research w-full lg:max-w-7xl mx-auto pt-12 lg:pt-24 flex flex-wrap px-4">
         <div class="awards w-full lg:w-1/2">
-            <h3 class="font-heading font-bold mb-6">Awards</h3>
-            <div class="w-full horizontal-ratio bg-cover bg-center" :style="{ 'background-image': 'url(' + 'https://unsplash.it/700/480?image='+1 + ')' }"></div>
-            <a href="#" class="font-body font-bold mt-4 no-underline block">IMAJINESIA: Judul Awards 150 Huruf Lorem Ipsum Dolor sit Amet Consectetur Adipiscing Elit Maecen Convallis Cursus Eros, vulputate Quismaxim Vivamusian</a>
+            <?php 
+            $awards = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'awards', 'posts_per_page' => 1));
+            while($awards->have_posts()) : $awards->the_post();
+            ?>
+            <h3 class="font-heading font-bold mb-6"><?= get_cat_name( get_cat_ID( 'awards' ) ) ?></h3>
+            <div class="w-full horizontal-ratio bg-cover bg-center" style="background-image: url('<?= get_the_post_thumbnail_url() ?>')"></div>
+            <a href="<?= get_permalink() ?>" class="font-body font-bold mt-4 no-underline block"><?= get_the_title(); ?></a>
+            <?php endwhile; ?>
         </div>
         <div class="research w-full lg:w-1/2 lg:pl-24 mt-12 lg:mt-0">
-            <h3 class="font-heading font-bold mb-6">Research</h3>
+            <h3 class="font-heading font-bold mb-6"><?= get_cat_name( get_cat_ID( 'research' ) ) ?></h3>
             <div class="flex flex-wrap">
-                <div class="w-full" v-for="i in 3">
-                    <a href="#" class="no-underline block hover:underline pb-4 lg:p-4">Judul Research 195 Huruf Lorem Ipsum Dolor sit Amet Consectetur Adipiscing Elit Maecen Convallis Cursus Eros, vulputate Quismaxim Vivamus placerat lectus pellentesque, cursus urna scelerisque qua</a>
+                <?php 
+                $research = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'research', 'posts_per_page' => 3));
+                while($research->have_posts()) : $awards->the_post();
+                ?>
+                <div class="w-full">
+                    <a href="<?= get_permalink() ?>" class="no-underline block hover:underline pb-4 lg:p-4"><?= get_the_title(); ?></a>
                     <hr class="pb-4 lg:pb-0">
                 </div>
+                <?php endwhile; ?>
             </div>
             <div class="flex justify-end mt-4 lg:mt-8">
-                <a href="#">View All</a>
+                <a href="<?= get_category_link( get_cat_ID( 'research' ) ) ?>">View All</a>
             </div>
         </div>
     </section>
