@@ -10,31 +10,27 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+	<!-- start content -->
+	<section class="content w-full mt-24 lg:mt-32 max-w-xl mx-auto px-4 mb-32">
+		<?php kiba_itb_post_thumbnail(); ?>
+		<h2 class="text-4xl font-bold font-title"><?= get_the_title(); ?></h2>
+		<div class="content">
+			<?php
+			while ( have_posts() ) :
+				the_post();
+				the_content();
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
+				// the_post_navigation(
+				// 	array(
+				// 		'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'kiba_itb' ) . '</span> <span class="nav-title">%title</span>',
+				// 		'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'kiba_itb' ) . '</span> <span class="nav-title">%title</span>',
+				// 	)
+				// );
 
-			get_template_part( 'template-parts/content', get_post_type() );
-
-			the_post_navigation(
-				array(
-					'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'kiba_itb' ) . '</span> <span class="nav-title">%title</span>',
-					'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'kiba_itb' ) . '</span> <span class="nav-title">%title</span>',
-				)
-			);
-
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
-
-		endwhile; // End of the loop.
-		?>
-
-	</main><!-- #main -->
+			endwhile; // End of the loop.
+			?>
+		</div>
+	</section>
 
 <?php
-get_sidebar();
 get_footer();

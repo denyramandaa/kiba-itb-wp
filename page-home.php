@@ -5,6 +5,7 @@
 
 get_header();
 $homepage_slider = get_field('homepage_slider');
+$post_type_awards = get_post_type_object( 'awards' );
 ?>
 
     <!-- start jumbotron -->
@@ -59,7 +60,7 @@ $homepage_slider = get_field('homepage_slider');
             <h3 class="font-heading font-bold"><?= get_cat_name( get_cat_ID( 'class' ) ) ?></h3>
             <a href="<?= get_category_link( get_cat_ID( 'class' ) ) ?>">View All</a>
         </div>
-        <div class="flex justify-center items-center flex-wrap lg:flex-nowrap lg:px-4">
+        <div class="flex justify-start items-center flex-wrap lg:flex-nowrap lg:px-4">
             <?php 
                 $class = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'class', 'posts_per_page' => 4));
                 while($class->have_posts()) : $class->the_post();
@@ -111,10 +112,10 @@ $homepage_slider = get_field('homepage_slider');
     <section class="awards-and-research w-full lg:max-w-7xl mx-auto pt-12 lg:pt-24 flex flex-wrap px-4">
         <div class="awards w-full lg:w-1/2">
             <?php 
-            $awards = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'awards', 'posts_per_page' => 1));
+            $awards = new WP_Query( array ('post_type' => 'awards', 'order_by' => 'post_id', 'order' => 'DESC', 'posts_per_page' => 1));
             while($awards->have_posts()) : $awards->the_post();
             ?>
-            <h3 class="font-heading font-bold mb-6"><?= get_cat_name( get_cat_ID( 'awards' ) ) ?></h3>
+            <h3 class="font-heading font-bold mb-6"><?= $post_type_awards->labels->name; ?></h3>
             <div class="w-full horizontal-ratio bg-cover bg-center" style="background-image: url('<?= get_the_post_thumbnail_url() ?>')"></div>
             <a href="<?= get_permalink() ?>" class="font-body font-bold mt-4 no-underline block"><?= get_the_title(); ?></a>
             <?php endwhile; ?>
@@ -124,7 +125,7 @@ $homepage_slider = get_field('homepage_slider');
             <div class="flex flex-wrap">
                 <?php 
                 $research = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'research', 'posts_per_page' => 3));
-                while($research->have_posts()) : $awards->the_post();
+                while($research->have_posts()) : $research->the_post();
                 ?>
                 <div class="w-full">
                     <a href="<?= get_permalink() ?>" class="no-underline block hover:underline pb-4 lg:p-4"><?= get_the_title(); ?></a>

@@ -40,13 +40,8 @@ get_header();
 				) );
 			?>
 			</div>
-			<!-- <div class="flex mt-12 lg:mt-16 items-center justify-center">
-				<span class="px-4 py-2 bg-gray-200 mx-1 font-bold cursor-pointer"><</span>
-				<span class="px-4 py-2 bg-gray-200 mx-1 font-bold cursor-pointer" v-for="(item, key) in 3">{{ item }}</span>
-				<span class="px-4 py-2 bg-gray-200 mx-1 font-bold cursor-pointer">></span>
-			</div> -->
 		</section>
-		<?php // the_posts_navigation();
+	<?php
  	else :
 		get_template_part( 'template-parts/content', 'none' );
 	endif; 

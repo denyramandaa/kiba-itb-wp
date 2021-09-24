@@ -533,9 +533,10 @@ footer {
 .content p, .content h2, .content h3, .content h4 {
     margin-bottom: 32px;
 }
-.content p {
+.content p, .content div {
     font-size: 18px;
     line-height: 28px;
+	margin-bottom: 30px;
 }
 .content img, .content figure {
     width: 100%;
