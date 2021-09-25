@@ -15,7 +15,13 @@
 	<footer class="w-full py-12 px-6">
 		<div class="w-full lg:max-w-7xl mx-auto flex flex-wrap lg:flex-nowrap">
 		<?php 
-            $loop = new WP_Query( array ('post_type' => 'footer_setting', 'order_by' => 'post_id', 'order' => 'DESC', 'posts_per_page' => 1));
+            $loop = new WP_Query( array (
+				'post_type' => 'footer_setting', 
+				'order_by' => 'post_id', 
+				'order' => 'DESC', 
+				'posts_per_page' => 1,
+				'post_status' => 'publish'
+			));
             while($loop->have_posts()) : $loop->the_post();
             ?>
 			<div class="listing w-full lg:w-1/3 flex flex-wrap items-center mb-8 lg:mr-6">

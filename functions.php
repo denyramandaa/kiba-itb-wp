@@ -165,7 +165,13 @@ function getTerms($id) {
 function fetch_porto() {
 	global $post;
     $res    = [];
-	$portfolio = new WP_Query( array ('post_type' => 'portfolio', 'order_by' => 'post_id', 'order' => 'DESC'));
+	$portfolio = new WP_Query( array (
+		'post_type' => 'portfolio', 
+		'order_by' => 'post_id', 
+		'order' => 'DESC',
+		'posts_per_page' => -1,
+		'post_status' => 'publish'
+	));
 	while($portfolio->have_posts()) : 
 		$portfolio->the_post();
 		$res[]  = [

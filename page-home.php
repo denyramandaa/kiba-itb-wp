@@ -62,7 +62,7 @@ $post_type_awards = get_post_type_object( 'awards' );
         </div>
         <div class="flex justify-start items-center flex-wrap lg:flex-nowrap lg:px-4">
             <?php 
-                $class = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'class', 'posts_per_page' => 4));
+                $class = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'class', 'posts_per_page' => 4, 'post_status' => 'publish'));
                 while($class->have_posts()) : $class->the_post();
             ?>
             <div class="listing w-full lg:w-1/4 mb-4 lg:mb-0 lg:mr-4">
@@ -87,7 +87,7 @@ $post_type_awards = get_post_type_object( 'awards' );
         </div>
         <div class="flex justify-start items-center flex-wrap lg:flex-nowrap px-4">
             <?php 
-            $articles = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'articles', 'posts_per_page' => 3));
+            $articles = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'articles', 'posts_per_page' => 3, 'post_status' => 'publish'));
             while($articles->have_posts()) : $articles->the_post();
             ?>
             <div class="listing w-full lg:w-1/3 mb-6 lg:mb-0 lg:mr-4">
@@ -112,7 +112,7 @@ $post_type_awards = get_post_type_object( 'awards' );
     <section class="awards-and-research w-full lg:max-w-7xl mx-auto pt-12 lg:pt-24 flex flex-wrap px-4">
         <div class="awards w-full lg:w-1/2">
             <?php 
-            $awards = new WP_Query( array ('post_type' => 'awards', 'order_by' => 'post_id', 'order' => 'DESC', 'posts_per_page' => 1));
+            $awards = new WP_Query( array ('post_type' => 'awards', 'order_by' => 'post_id', 'order' => 'DESC', 'posts_per_page' => 1, 'post_status' => 'publish'));
             while($awards->have_posts()) : $awards->the_post();
             ?>
             <h3 class="font-heading font-bold mb-6"><?= $post_type_awards->labels->name; ?></h3>
@@ -124,7 +124,7 @@ $post_type_awards = get_post_type_object( 'awards' );
             <h3 class="font-heading font-bold mb-6"><?= get_cat_name( get_cat_ID( 'research' ) ) ?></h3>
             <div class="flex flex-wrap">
                 <?php 
-                $research = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'research', 'posts_per_page' => 3));
+                $research = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'research', 'posts_per_page' => 3, 'post_status' => 'publish'));
                 while($research->have_posts()) : $research->the_post();
                 ?>
                 <div class="w-full">
@@ -145,7 +145,7 @@ $post_type_awards = get_post_type_object( 'awards' );
         <h3 class="font-heading font-bold mb-12 text-center">In Partnership with</h3>
         <div class="flex justify-evenly items-center flex-wrap">
             <?php 
-            $partners = new WP_Query( array ('post_type' => 'partnership', 'order_by' => 'post_id', 'order' => 'DESC'));
+            $partners = new WP_Query( array ('post_type' => 'partnership', 'order_by' => 'post_id', 'order' => 'DESC', 'post_status' => 'publish'));
             while($partners->have_posts()) : $partners->the_post();
             ?>
                 <img class="mb-8 mx-4 partnership-img" src="<?php the_field('partnership_image') ?>" alt="<?php the_field('partnership_name') ?>">
