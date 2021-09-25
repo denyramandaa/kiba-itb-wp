@@ -1,6 +1,6 @@
 <?php
 /*
-    Template Name: Class
+    Template Name: Research
 */
 
 get_header();
