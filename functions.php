@@ -151,32 +151,36 @@ function kiba_itb_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'kiba_itb_scripts' );
 
+function getTerms($id) {
+	$terms = wp_get_post_terms( $id, array( 'portfolio_project', 'portfolio_year' ) );
+	foreach ( $terms as $term ) :
+		$myterms[] = [
+			'label' => $term->taxonomy,
+			'value' => $term->name
+		];
+	endforeach;
+	return $myterms;
+}
 
 function fetch_porto() {
 	global $post;
     $res    = [];
-	$portfolio = get_posts( array( 'post_type' => 'portfolio', 'order_by' => 'post_id', 'order' => 'DESC' ) );
-	// while($portfolio->have_posts()) : 
-	// 	$portfolio->the_post();
-	// 	var_dump(the_field('portfolio_year'));
-	// 	// array_push($res, the_field('portfolio_author'));
-	// 	// $res[] = [      
-    //     //   'cover'           => the_field('portfolio_author'),
-    //     //   'year'            => $value['project_portofolio_year'] ? $value['project_portofolio_year'] : null
-    //   	// ];
-	// endwhile;
-	// wp_reset_postdata();
-	foreach( $portfolio as $post ) : 
-		setup_postdata($post);
-		$res[] = [      
-          'cover'           => the_field('portfolio_author')
-      	];
-	endforeach;
-	wp_reset_postdata(); 
+	$portfolio = new WP_Query( array ('post_type' => 'portfolio', 'order_by' => 'post_id', 'order' => 'DESC'));
+	while($portfolio->have_posts()) : 
+		$portfolio->the_post();
+		$res[]  = [
+			'author'	=> get_field('portfolio_author'),
+			'terms' 	=> getTerms(get_the_ID()),
+			'thumb'		=> get_the_post_thumbnail_url(),
+			'url'		=> get_the_permalink()
+		];
+	endwhile;
+	wp_reset_postdata();
     return $res;
 }
+
 add_action( 'rest_api_init', function () {
-	register_rest_route( 'kiba/v1', '/portoflio', [
+	register_rest_route( 'kiba/v1', '/portfolio', [
 	  'methods' => 'GET',
 	  'callback' => 'fetch_porto',
 	 ] );
