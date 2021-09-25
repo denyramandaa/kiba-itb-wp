@@ -11,6 +11,12 @@ get_header();
 			<h2 class="font-heading font-bold text-4xl mb-6 text-center px-4"><?= single_cat_title(); ?></h2>
 		</section>
 		<!-- end heading -->
+
+        <!-- start link -->
+        <section class="link w-full pt-12 flex items-center justify-center">
+            <a href="#" class="no-underline bg-gray-200 rounded-xl font-bold py-2 px-12">Link ke Digital Library ITB</a>
+        </section>
+        <!-- end link -->
 		<section class="work w-full lg:max-w-7xl mx-auto pt-12 flex justify-center items-center flex-wrap relative px-4 pb-24 lg:pb-40">
 			<div class="w-full flex justify-start items-center flex-wrap">
 				<?php

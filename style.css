@@ -439,6 +439,7 @@ footer {
         margin-bottom: 15px;
         padding-bottom: 10px;
 		position: relative;
+		width: 100%;
     }
     .header__menu--list li::before {
         content: '';

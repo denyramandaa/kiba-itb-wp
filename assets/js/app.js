@@ -54,6 +54,12 @@ new Vue({
         tabWorkDetail: 0
     },
     methods: {
+        convertToRupiah(angka) {
+            var rupiah = '';		
+            var angkarev = angka.toString().split('').reverse().join('');
+            for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+            return 'Rp '+rupiah.split('',rupiah.length-1).reverse().join('');
+        },
         initSwiperJumbotron() {
             this.swiperJumbotron = new Swiper(".swiper--jumbotron", {
                 autoplay: {

@@ -61,7 +61,7 @@
 					'theme_location'	=> 'primary',
 					'container'			=> 'nav',
 					'container_class'	=> 'header__menu flex justify-center items-center flex-col',
-					'menu_class'		=> 'header__menu--list w-2/3 text-center relative flex'
+					'menu_class'		=> 'header__menu--list w-2/3 text-center relative flex flex-wrap'
 				) );
 			?>
 		</div>

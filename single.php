@@ -20,13 +20,6 @@ get_header();
 				the_post();
 				the_content();
 
-				// the_post_navigation(
-				// 	array(
-				// 		'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'kiba_itb' ) . '</span> <span class="nav-title">%title</span>',
-				// 		'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'kiba_itb' ) . '</span> <span class="nav-title">%title</span>',
-				// 	)
-				// );
-
 			endwhile; // End of the loop.
 			?>
 		</div>

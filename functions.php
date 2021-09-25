@@ -151,6 +151,37 @@ function kiba_itb_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'kiba_itb_scripts' );
 
+
+function fetch_porto() {
+	global $post;
+    $res    = [];
+	$portfolio = get_posts( array( 'post_type' => 'portfolio', 'order_by' => 'post_id', 'order' => 'DESC' ) );
+	// while($portfolio->have_posts()) : 
+	// 	$portfolio->the_post();
+	// 	var_dump(the_field('portfolio_year'));
+	// 	// array_push($res, the_field('portfolio_author'));
+	// 	// $res[] = [      
+    //     //   'cover'           => the_field('portfolio_author'),
+    //     //   'year'            => $value['project_portofolio_year'] ? $value['project_portofolio_year'] : null
+    //   	// ];
+	// endwhile;
+	// wp_reset_postdata();
+	foreach( $portfolio as $post ) : 
+		setup_postdata($post);
+		$res[] = [      
+          'cover'           => the_field('portfolio_author')
+      	];
+	endforeach;
+	wp_reset_postdata(); 
+    return $res;
+}
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'kiba/v1', '/portoflio', [
+	  'methods' => 'GET',
+	  'callback' => 'fetch_porto',
+	 ] );
+});
+
 /**
  * Implement the Custom Header feature.
  */
@@ -177,4 +208,3 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-
