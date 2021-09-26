@@ -15,14 +15,26 @@ get_header();
             <h2 class="font-heading font-bold text-4xl mb-6 text-center">Portofolio Directory</h2>
             <div class="bg-gray-200 w-full">
                 <div class="w-full lg:max-w-7xl mx-auto flex justify-between items-center py-2 px-4 flex-wrap relative">
-                    <div class="flex rounded-3xl bg-white justify-start lg:absolute top-auto left-auto">
-                        <div class="bg-gray-400 text-white py-2 px-6 lg:px-8 rounded-3xl cursor-pointer">Year</div>
-                        <div class="py-2 px-6 lg:px-8 rounded-3xl cursor-pointer">Project</div>
+                    <div class="flex rounded-3xl justify-start lg:absolute top-auto left-auto">
+                        <div class="flex">
+                            <label class="inline-flex items-center">
+                            <input type="radio" class="form-radio" name="filterType" value="year" v-model="filterType">
+                            <span class="ml-2">Year</span>
+                            </label>
+                            <label class="inline-flex items-center ml-6">
+                            <input type="radio" class="form-radio" name="filterType" value="project" v-model="filterType">
+                            <span class="ml-2">Project</span>
+                            </label>
+                        </div>
                     </div>
                     <div class="flex w-1/2 lg:w-full justify-end lg:justify-center items-center">
                         <div class="font-bold mr-2 hidden lg:block">Filter:</div>
                         <div class="inline-block relative w-24 lg:w-32">
-                            <select class="block appearance-none w-full bg-white px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" v-model="filterByProject">
+                            <select v-if="filterType === 'year'" class="block appearance-none w-full bg-white px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" v-model="filterByYear">
+                              <option>All</option>
+                              <option v-for="(item, idx) in categoriesByYear">{{ item }}</option>
+                            </select>
+                            <select v-if="filterType === 'project'" class="block appearance-none w-full bg-white px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" v-model="filterByProject">
                               <option>All</option>
                               <option v-for="(item, idx) in categoriesByProject">{{ item }}</option>
                             </select>

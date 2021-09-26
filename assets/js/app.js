@@ -13,7 +13,9 @@ new Vue({
         pageLength: 0,
         categoriesByProject: [],
         categoriesByYear: [],
-        filterByProject: 'All'
+        filterType: 'year',
+        filterByProject: 'All',
+        filterByYear: 'All'
     },
     methods: {
         seeMore() {
@@ -123,9 +125,19 @@ new Vue({
                 },200)
             }
         },
+        filterType() {
+            console.log(this.filterType)
+        },
         filterByProject() {
             const _self = this
             this.portfolio = this.filterByProject === 'All' ? this.tempPortfolio : this.tempPortfolio.filter(d => d.terms.some(x => x.value === this.filterByProject))
+            setTimeout(function() {
+                _self.waitForImages()
+            },200)
+        },
+        filterByYear() {
+            const _self = this
+            this.portfolio = this.filterByYear === 'All' ? this.tempPortfolio : this.tempPortfolio.filter(d => d.terms.some(x => x.value === this.filterByYear))
             setTimeout(function() {
                 _self.waitForImages()
             },200)
