@@ -8,6 +8,7 @@ new Vue({
         portfolioData: [],
         seeMoreIdx: 0,
         portfolio: [],
+        tempPortfolio: [],
         postPerLoad: 10,
         pageLength: 0,
         categoriesByProject: [],
@@ -19,6 +20,7 @@ new Vue({
             if(this.seeMoreIdx < this.pageLength-1) {
                 this.seeMoreIdx++
                 this.portfolio.push(this.getPaginate(this.seeMoreIdx)[0])
+                this.tempPortfolio.push(this.getPaginate(this.seeMoreIdx)[0])
                 const _self = this
                 setTimeout(function() {
                     _self.waitForImages()
@@ -115,16 +117,18 @@ new Vue({
             const _self = this
             if(this.portfolioData.length) {
                 this.portfolio = this.getPaginate(0)
+                this.tempPortfolio = this.getPaginate(0)
                 setTimeout(function() {
                     _self.waitForImages()
                 },200)
             }
         },
         filterByProject() {
-            console.log(this.portfolio)
-            console.log(this.filterByProject)
-            console.log(this.portfolio.filter(d => d.terms.value === this.filterByProject))
-            // this.portfolio = this.portfolio.filter(d => d.terms.value === this.filterByProject)
+            const _self = this
+            this.portfolio = this.filterByProject === 'All' ? this.tempPortfolio : this.tempPortfolio.filter(d => d.terms.some(x => x.value === this.filterByProject))
+            setTimeout(function() {
+                _self.waitForImages()
+            },200)
         }
     },
     mounted(){
