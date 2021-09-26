@@ -55,9 +55,9 @@ new Vue({
             return pages[idx]
         },
         convertToRupiah(angka) {
-            var rupiah = '';		
-            var angkarev = angka.toString().split('').reverse().join('');
-            for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+            let rupiah = '';		
+            let angkarev = angka.toString().split('').reverse().join('');
+            for(let i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
             return 'Rp '+rupiah.split('',rupiah.length-1).reverse().join('');
         },
         initSwiperJumbotron() {
@@ -86,19 +86,19 @@ new Vue({
             });
         },
         resizeMasonryItem(item){
-            var grid = document.getElementsByClassName('masonry')[0],
+            let grid = document.getElementsByClassName('masonry')[0],
                 rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap')),
                 rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-            var rowSpan = Math.ceil((item.querySelector('.masonry-content').getBoundingClientRect().height)/(rowHeight+rowGap));
+            let rowSpan = Math.ceil((item.querySelector('.masonry-content').getBoundingClientRect().height)/(rowHeight+rowGap));
             item.style.gridRowEnd = 'span '+rowSpan;
             item.querySelector('.masonry-content').style.height = rowSpan * 10 + "px";
         },
         waitForImages() {
             const _self = this
-            var allItems = document.getElementsByClassName('masonry-item');
+            let allItems = document.getElementsByClassName('masonry-item');
             for(let i=0;i<allItems.length;i++){
               imagesLoaded( allItems[i], function(instance) {
-                var item = instance.elements[0];
+                let item = instance.elements[0];
                 _self.resizeMasonryItem(item);
               } );
             }
@@ -125,9 +125,6 @@ new Vue({
                 },200)
             }
         },
-        filterType() {
-            console.log(this.filterType)
-        },
         filterByProject() {
             const _self = this
             this.portfolio = this.filterByProject === 'All' ? this.tempPortfolio : this.tempPortfolio.filter(d => d.terms.some(x => x.value === this.filterByProject))
@@ -145,10 +142,9 @@ new Vue({
     },
     mounted(){
         this.$nextTick(() => {
-            const _self = this
-            _self.initSwiperJumbotron()
-            _self.initSwiperWork()
-            _self.fetchPortfolioData()
+            this.initSwiperJumbotron()
+            this.initSwiperWork()
+            this.fetchPortfolioData()
         });
     },
 })
