@@ -40,11 +40,11 @@ get_header();
         <!-- start portofolio -->
         <section class="portofolio w-full lg:max-w-7xl mx-auto pt-16 flex justify-center items-center flex-wrap mb-24">
             <div class="masonry w-full lg:px-6">
-                <div class="masonry-item" v-for="i in dummyFoto">
-                    <a href="work-detail.html"><img :src="i" :alt="i" class="masonry-content"></a>
+                <div class="masonry-item" v-for="(item, key) in portfolio" :key="key">
+                    <a :href="item.url"><img :src="item.thumb" :alt="item.author" class="masonry-content"></a>
                 </div>
             </div>
-            <button class="font-text text-lg bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mt-16">
+            <button v-if="seeMoreIdx !== pageLength-1" class="font-text text-lg bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mt-16" @click="seeMore()">
                 See More
             </button>
         </section>

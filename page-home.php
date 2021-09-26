@@ -44,7 +44,7 @@ $post_type_awards = get_post_type_object( 'awards' );
     <!-- start portofolio -->
     <section class="portofolio w-full lg:max-w-7xl mx-auto pt-16 flex justify-center items-center flex-wrap">
         <div class="masonry w-full lg:px-6">
-            <div class="masonry-item" v-for="(item, key) in portfolioData" :key="key">
+            <div class="masonry-item" v-for="(item, key) in portfolio" :key="key">
                 <a :href="item.url"><img :src="item.thumb" :alt="item.author" class="masonry-content"></a>
             </div>
         </div>

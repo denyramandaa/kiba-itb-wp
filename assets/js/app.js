@@ -5,12 +5,43 @@ new Vue({
         swiperJumbotron: '',
         swiperWork: '',
         tabWorkDetail: 0,
-        portfolioData: []
+        portfolioData: [],
+        seeMoreIdx: 0,
+        portfolio: [],
+        postPerLoad: 1,
+        pageLength: 0
     },
     computed: {
-        
+        // portfolio() {
+        //     let pages = this.paginate(this.portfolioData, 1)
+        //     return pages[this.seeMoreIdx]
+        // }
     },
     methods: {
+        seeMore() {
+            if(this.seeMoreIdx < this.pageLength-1) {
+                this.seeMoreIdx++
+                this.portfolio.push(this.getPaginate(this.seeMoreIdx)[0])
+                const _self = this
+                setTimeout(function() {
+                    _self.waitForImages()
+                },300)
+            }
+        },
+        paginate (arr, size) {
+            return arr.reduce((acc, val, i) => {
+                let idx = Math.floor(i / size)
+                let page = acc[idx] || (acc[idx] = [])
+                page.push(val)
+            
+                return acc
+            }, [])
+        },
+        getPaginate(idx) {
+            let pages = this.paginate(this.portfolioData, this.postPerLoad)
+            this.pageLength = pages.length
+            return pages[idx]
+        },
         convertToRupiah(angka) {
             var rupiah = '';		
             var angkarev = angka.toString().split('').reverse().join('');
@@ -50,12 +81,6 @@ new Vue({
             item.style.gridRowEnd = 'span '+rowSpan;
             item.querySelector('.masonry-content').style.height = rowSpan * 10 + "px";
         },
-        resizeAllMasonryItems(){
-            var allItems = document.getElementsByClassName('masonry-item');
-            for(var i=0;i>allItems.length;i++){
-              this.resizeMasonryItem(allItems[i]);
-            }
-        },
         waitForImages() {
             const _self = this
             var allItems = document.getElementsByClassName('masonry-item');
@@ -80,6 +105,7 @@ new Vue({
         portfolioData() {
             const _self = this
             if(this.portfolioData.length) {
+                this.portfolio = this.getPaginate(0)
                 setTimeout(function() {
                     _self.waitForImages()
                 },200)
@@ -92,10 +118,6 @@ new Vue({
             _self.initSwiperJumbotron()
             _self.initSwiperWork()
             _self.fetchPortfolioData()
-            let masonryEvents = ['load', 'resize'];
-            masonryEvents.forEach( function(event) {
-                window.addEventListener(event, _self.resizeAllMasonryItems);
-            } );
         });
     },
 })
