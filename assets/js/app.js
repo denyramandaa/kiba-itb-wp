@@ -8,7 +8,7 @@ new Vue({
         portfolioData: [],
         seeMoreIdx: 0,
         portfolio: [],
-        postPerLoad: 1,
+        postPerLoad: 10,
         pageLength: 0
     },
     computed: {
@@ -77,7 +77,7 @@ new Vue({
             var grid = document.getElementsByClassName('masonry')[0],
                 rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap')),
                 rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-            var rowSpan = Math.ceil((item.querySelector('.masonry-content').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
+            var rowSpan = Math.ceil((item.querySelector('.masonry-content').getBoundingClientRect().height)/(rowHeight+rowGap));
             item.style.gridRowEnd = 'span '+rowSpan;
             item.querySelector('.masonry-content').style.height = rowSpan * 10 + "px";
         },
