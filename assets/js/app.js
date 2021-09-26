@@ -9,13 +9,10 @@ new Vue({
         seeMoreIdx: 0,
         portfolio: [],
         postPerLoad: 10,
-        pageLength: 0
-    },
-    computed: {
-        // portfolio() {
-        //     let pages = this.paginate(this.portfolioData, 1)
-        //     return pages[this.seeMoreIdx]
-        // }
+        pageLength: 0,
+        categoriesByProject: [],
+        categoriesByYear: [],
+        filterByProject: 'All'
     },
     methods: {
         seeMore() {
@@ -27,6 +24,17 @@ new Vue({
                     _self.waitForImages()
                 },300)
             }
+        },
+        getCategories() {
+            let catsByProject = []
+            let catsByYear = []
+            for(let i=0;i<this.portfolioData.length;i++) {
+                for(let j=0;j<this.portfolioData[i].terms.length;j++) {
+                    this.portfolioData[i].terms[j].label === 'portfolio_year' ? catsByYear.push(this.portfolioData[i].terms[j].value) : catsByProject.push(this.portfolioData[i].terms[j].value)
+                }
+            }
+            this.categoriesByProject = [...new Set(catsByProject)]
+            this.categoriesByYear = [...new Set(catsByYear)]
         },
         paginate (arr, size) {
             return arr.reduce((acc, val, i) => {
@@ -97,6 +105,7 @@ new Vue({
               .get('/kiba-itb/wp-json/kiba/v1/portfolio/')
               .then(({ data }) => {
                 _self.portfolioData = data
+                _self.getCategories()
               })
               .catch( error => console.log(error))
         }
@@ -110,6 +119,12 @@ new Vue({
                     _self.waitForImages()
                 },200)
             }
+        },
+        filterByProject() {
+            console.log(this.portfolio)
+            console.log(this.filterByProject)
+            console.log(this.portfolio.filter(d => d.terms.value === this.filterByProject))
+            // this.portfolio = this.portfolio.filter(d => d.terms.value === this.filterByProject)
         }
     },
     mounted(){
