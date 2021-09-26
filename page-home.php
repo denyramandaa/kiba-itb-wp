@@ -44,11 +44,11 @@ $post_type_awards = get_post_type_object( 'awards' );
     <!-- start portofolio -->
     <section class="portofolio w-full lg:max-w-7xl mx-auto pt-16 flex justify-center items-center flex-wrap">
         <div class="masonry w-full lg:px-6">
-            <div class="masonry-item" v-for="i in dummyFoto">
-                <a href="#"><img :src="i" :alt="i" class="masonry-content"></a>
+            <div class="masonry-item" v-for="(item, key) in portfolioData" :key="key">
+                <a :href="item.url"><img :src="item.thumb" :alt="item.author" class="masonry-content"></a>
             </div>
         </div>
-        <a href="#" class="font-text text-lg mt-16">See Portofolio Directory</a>
+        <a href="<?= get_post_type_archive_link( 'portfolio' ); ?>" class="font-text text-lg mt-16">See Portofolio Directory</a>
     </section>
     <!-- end portofolio -->
 
