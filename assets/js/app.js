@@ -15,9 +15,16 @@ new Vue({
         categoriesByYear: [],
         filterType: 'year',
         filterByProject: 'All',
-        filterByYear: 'All'
+        filterByYear: 'All',
+        alphabets: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
+        showAlphaFilter: false,
+        pickedAlpha: 'a'
     },
     methods: {
+        pickAlpha(alpha) {
+            this.pickedAlpha = alpha
+            this.showAlphaFilter = false
+        },
         seeMore() {
             if(this.seeMoreIdx < this.pageLength-1) {
                 this.seeMoreIdx++
@@ -135,6 +142,14 @@ new Vue({
         filterByYear() {
             const _self = this
             this.portfolio = this.filterByYear === 'All' ? this.tempPortfolio : this.tempPortfolio.filter(d => d.terms.some(x => x.value === this.filterByYear))
+            setTimeout(function() {
+                _self.waitForImages()
+            },200)
+        },
+        pickedAlpha() {
+            const _self = this
+            console.log(this.tempPortfolio)
+            this.portfolio = this.tempPortfolio.filter(d => d.author.charAt(0).toUpperCase() == _self.pickedAlpha.toUpperCase())
             setTimeout(function() {
                 _self.waitForImages()
             },200)

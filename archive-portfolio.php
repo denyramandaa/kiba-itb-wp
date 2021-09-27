@@ -16,20 +16,24 @@ get_header();
             <div class="bg-gray-200 w-full">
                 <div class="w-full lg:max-w-7xl mx-auto flex justify-between items-center py-2 px-4 flex-wrap relative">
                     <div class="flex rounded-3xl justify-start lg:absolute top-auto left-auto">
-                        <div class="flex">
-                            <label class="inline-flex items-center">
+                        <div class="flex flex-col lg:flex-row">
+                            <label class="inline-flex items-center mb-2 lg:mb-0">
                             <input type="radio" class="form-radio" name="filterType" value="year" v-model="filterType">
                             <span class="ml-2">Year</span>
                             </label>
-                            <label class="inline-flex items-center ml-6">
+                            <label class="inline-flex items-center mb-2 lg:mb-0 lg:ml-6">
                             <input type="radio" class="form-radio" name="filterType" value="project" v-model="filterType">
                             <span class="ml-2">Project</span>
+                            </label>
+                            <label class="inline-flex items-center mb-2 lg:mb-0 lg:ml-6">
+                            <input type="radio" class="form-radio" name="filterType" value="alphabet" v-model="filterType">
+                            <span class="ml-2">Alphabetically</span>
                             </label>
                         </div>
                     </div>
                     <div class="flex w-1/2 lg:w-full justify-end lg:justify-center items-center">
                         <div class="font-bold mr-2 hidden lg:block">Filter:</div>
-                        <div class="inline-block relative w-24 lg:w-32">
+                        <div class="inline-block relative w-24 lg:w-32" v-if="filterType === 'year' || filterType === 'project'">
                             <select v-if="filterType === 'year'" class="block appearance-none w-full bg-white px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" v-model="filterByYear">
                               <option>All</option>
                               <option v-for="(item, idx) in categoriesByYear">{{ item }}</option>
@@ -41,7 +45,13 @@ get_header();
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                               <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                             </div>
-                          </div>
+                        </div>
+                        <div v-else class="inline-block relative w-24 lg:w-32">
+                            <div class="block appearance-none w-full bg-white px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline uppercase relative alpha  cursor-pointer" @click="showAlphaFilter = !showAlphaFilter">{{ pickedAlpha }}</div>
+                            <div class="modal-alpha flex flex-wrap p-2" v-if="showAlphaFilter">
+                                <div class="flex justify-center items-center w-1/5 uppercase p-2 cursor-pointer alpha-array" v-for="(alphabet, id) in alphabets" @click="pickAlpha(alphabet)" :class="{ 'active' : alphabet === pickedAlpha }">{{ alphabet }}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
