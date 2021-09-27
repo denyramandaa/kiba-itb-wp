@@ -49,7 +49,7 @@ get_header();
                         <div v-else class="inline-block relative w-24 lg:w-32">
                             <div class="block appearance-none w-full bg-white px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline uppercase relative alpha  cursor-pointer" @click="showAlphaFilter = !showAlphaFilter">{{ pickedAlpha }}</div>
                             <div class="modal-alpha flex flex-wrap p-2" v-if="showAlphaFilter">
-                                <div class="flex justify-center items-center w-1/5 uppercase p-2 cursor-pointer alpha-array" v-for="(alphabet, id) in alphabets" @click="pickAlpha(alphabet)" :class="{ 'active' : alphabet === pickedAlpha }">{{ alphabet }}</div>
+                                <div class="flex justify-center items-center w-1/5 uppercase p-2 cursor-pointer alpha-array leading-none" v-for="(alphabet, id) in alphabets" @click="pickAlpha(alphabet)" :class="{ 'active' : alphabet === pickedAlpha }">{{ alphabet }}</div>
                             </div>
                         </div>
                     </div>
