@@ -9,7 +9,7 @@ new Vue({
         seeMoreIdx: 0,
         portfolio: [],
         tempPortfolio: [],
-        postPerLoad: 10,
+        postPerLoad: 1,
         pageLength: 0,
         categoriesByProject: [],
         categoriesByYear: [],
@@ -18,7 +18,7 @@ new Vue({
         filterByYear: 'All',
         alphabets: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
         showAlphaFilter: false,
-        pickedAlpha: 'a'
+        pickedAlpha: 'A'
     },
     methods: {
         pickAlpha(alpha) {

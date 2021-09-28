@@ -11,7 +11,7 @@ $about_image = get_field('about_image');
 ?>
 <!-- start about -->
 <section class="about w-full lg:max-w-7xl mx-auto pt-16 lg:pt-40 pb-24 lg:pb-40">
-    <div class="relative w-full px-4 flex items-center justify-center flex-wrap lg:flex-nowrap">
+    <div class="relative w-full px-6 flex items-center justify-center flex-wrap lg:flex-nowrap">
         <div class="w-full lg:w-1/2 mb-8 lg:mb-0">
             <div class="horizontal-ratio bg-cover bg-center" style="background-image: url('<?= $about_image ?>')"></div>
         </div>
