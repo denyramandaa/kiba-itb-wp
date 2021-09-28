@@ -18,7 +18,18 @@ get_header();
 
         <!-- start link -->
         <section class="link w-full pt-12 flex items-center justify-center">
-            <a href="#" class="no-underline bg-gray-200 rounded-xl font-bold py-2 px-12">Link ke WA ato marketplace</a>
+			<?php 
+				$loop = new WP_Query( array (
+					'post_type' => 'footer_setting', 
+					'order_by' => 'post_id', 
+					'order' => 'DESC', 
+					'posts_per_page' => 1,
+					'post_status' => 'publish'
+				));
+				while($loop->have_posts()) : $loop->the_post();
+			?>
+            <a href="<?php the_field('link_shop') ?>" class="no-underline bg-gray-200 rounded-xl font-bold py-2 px-12" target="_blank"><?php the_field('label_shop') ?></a>
+			<?php endwhile; ?>
         </section>
         <!-- end link -->
 		<section class="work w-full lg:max-w-7xl mx-auto pt-12 flex justify-center items-center flex-wrap relative px-4 pb-24 lg:pb-40">
