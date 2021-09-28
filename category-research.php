@@ -25,7 +25,7 @@ get_header();
 				while($loop->have_posts()) : $loop->the_post();
 			?>
             <a href="<?php the_field('link_research') ?>" class="no-underline bg-gray-200 rounded-xl font-bold py-2 px-12" target="_blank"><?php the_field('label_research') ?></a>
-			<?php endwhile; ?>
+			<?php endwhile; wp_reset_postdata(); ?>
         </section>
         <!-- end link -->
 		<section class="work w-full lg:max-w-7xl mx-auto pt-12 flex justify-center items-center flex-wrap relative px-4 pb-24 lg:pb-40">

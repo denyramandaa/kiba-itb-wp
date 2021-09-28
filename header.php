@@ -38,17 +38,17 @@
 		<div class="header__inner flex justify-between lg:justify-start w-full lg:max-w-7xl mx-auto px-4">
 			<div class="header--logo relative">
 				<?php 
-					$loop = new WP_Query( array (
-						'post_type' => 'footer_setting', 
-						'order_by' => 'post_id', 
-						'order' => 'DESC', 
-						'posts_per_page' => 1,
-						'post_status' => 'publish'
-					));
-					while($loop->have_posts()) : $loop->the_post();
+				$loop = new WP_Query( array (
+					'post_type' => 'footer_setting', 
+					'order_by' => 'post_id', 
+					'order' => 'DESC', 
+					'posts_per_page' => 1,
+					'post_status' => 'publish'
+				));
+				while($loop->have_posts()) : $loop->the_post();
 				?>
 				<h1><a href="<?= home_url() ?>"><img src="<?php the_field('kiba_logo'); ?>" alt="Kiba ITB logo"></a></h1>
-				<?php endwhile; ?>
+				<?php endwhile; wp_reset_postdata(); ?>
 			</div>
 			<?php
 				wp_nav_menu( array(

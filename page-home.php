@@ -72,7 +72,7 @@ $post_type_awards = get_post_type_object( 'awards' );
                 </a>
                 <hr class="my-8 mx-4 lg:mx-0">
             </div>
-            <?php endwhile; ?>
+            <?php endwhile; wp_reset_postdata(); ?>
         </div>
     </section>
     <!-- end class -->
@@ -103,7 +103,7 @@ $post_type_awards = get_post_type_object( 'awards' );
                     </div>
                 </a>
             </div>
-            <?php endwhile; ?>
+            <?php endwhile; wp_reset_postdata(); ?>
         </div>
     </section>
     <!-- end articles -->
@@ -118,7 +118,7 @@ $post_type_awards = get_post_type_object( 'awards' );
             <h3 class="font-heading font-bold mb-6"><?= $post_type_awards->labels->name; ?></h3>
             <div class="w-full horizontal-ratio bg-cover bg-center" style="background-image: url('<?= get_the_post_thumbnail_url() ?>')"></div>
             <a href="<?= get_permalink() ?>" class="font-body font-bold mt-4 no-underline block"><?= get_the_title(); ?></a>
-            <?php endwhile; ?>
+            <?php endwhile; wp_reset_postdata(); ?>
         </div>
         <div class="research w-full lg:w-1/2 lg:pl-24 mt-12 lg:mt-0">
             <h3 class="font-heading font-bold mb-6"><?= get_cat_name( get_cat_ID( 'research' ) ) ?></h3>
@@ -131,7 +131,7 @@ $post_type_awards = get_post_type_object( 'awards' );
                     <a href="<?= get_permalink() ?>" class="no-underline block hover:underline pb-4 lg:p-4"><?= get_the_title(); ?></a>
                     <hr class="pb-4 lg:pb-0">
                 </div>
-                <?php endwhile; ?>
+                <?php endwhile; wp_reset_postdata(); ?>
             </div>
             <div class="flex justify-end mt-4 lg:mt-8">
                 <a href="<?= get_category_link( get_cat_ID( 'research' ) ) ?>">View All</a>
@@ -149,7 +149,7 @@ $post_type_awards = get_post_type_object( 'awards' );
             while($partners->have_posts()) : $partners->the_post();
             ?>
                 <img class="mb-8 mx-4 partnership-img" src="<?php the_field('partnership_image') ?>" alt="<?php the_field('partnership_name') ?>">
-            <?php endwhile; ?>
+            <?php endwhile; wp_reset_postdata(); ?>
         </div>
     </section>
     <!-- end partnership -->

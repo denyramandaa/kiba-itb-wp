@@ -32,7 +32,7 @@ new Vue({
                 this.tempPortfolio.push(this.getPaginate(this.seeMoreIdx)[0])
                 const _self = this
                 setTimeout(function() {
-                    _self.waitForImages()
+                    _self.renderingMasonry()
                 },300)
             }
         },
@@ -100,7 +100,7 @@ new Vue({
             item.style.gridRowEnd = 'span '+rowSpan;
             item.querySelector('.masonry-content').style.height = rowSpan * 10 + "px";
         },
-        waitForImages() {
+        renderingMasonry() {
             const _self = this
             let allItems = document.getElementsByClassName('masonry-item');
             for(let i=0;i<allItems.length;i++){
@@ -128,31 +128,39 @@ new Vue({
                 this.portfolio = this.getPaginate(0)
                 this.tempPortfolio = this.getPaginate(0)
                 setTimeout(function() {
-                    _self.waitForImages()
+                    _self.renderingMasonry()
                 },200)
             }
         },
         filterByProject() {
             const _self = this
-            this.portfolio = this.filterByProject === 'All' ? this.tempPortfolio : this.tempPortfolio.filter(d => d.terms.some(x => x.value === this.filterByProject))
+            this.portfolio = []
             setTimeout(function() {
-                _self.waitForImages()
-            },200)
+                _self.portfolio = _self.filterByProject === 'All' ? _self.tempPortfolio : _self.tempPortfolio.filter(d => d.terms.some(x => x.value === _self.filterByProject))
+                setTimeout(function() {
+                    _self.renderingMasonry()
+                },100)
+            }, 100)
         },
         filterByYear() {
             const _self = this
-            this.portfolio = this.filterByYear === 'All' ? this.tempPortfolio : this.tempPortfolio.filter(d => d.terms.some(x => x.value === this.filterByYear))
+            this.portfolio = []
             setTimeout(function() {
-                _self.waitForImages()
-            },200)
+                _self.portfolio = _self.filterByYear === 'All' ? _self.tempPortfolio : _self.tempPortfolio.filter(d => d.terms.some(x => x.value === _self.filterByYear))
+                setTimeout(function() {
+                    _self.renderingMasonry()
+                },100)
+            }, 100)
         },
         pickedAlpha() {
             const _self = this
-            console.log(this.tempPortfolio)
-            this.portfolio = this.tempPortfolio.filter(d => d.author.charAt(0).toUpperCase() == _self.pickedAlpha.toUpperCase())
+            _self.portfolio = []
             setTimeout(function() {
-                _self.waitForImages()
-            },200)
+                _self.portfolio = _self.tempPortfolio.filter(d => d.author.charAt(0).toUpperCase() == _self.pickedAlpha.toUpperCase())
+                setTimeout(function() {
+                    _self.renderingMasonry()
+                },100)
+            }, 100)
         }
     },
     mounted(){
