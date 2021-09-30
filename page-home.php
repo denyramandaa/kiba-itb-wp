@@ -125,7 +125,7 @@ $post_type_awards = get_post_type_object( 'awards' );
             while($awards->have_posts()) : $awards->the_post();
             ?>
             <h3 class="font-heading font-bold mb-6"><?= $post_type_awards->labels->name; ?></h3>
-            <div class="w-full horizontal-ratio bg-cover bg-center" style="background-image: url('<?= get_the_post_thumbnail_url() ?>')"></div>
+            <a href="<?= get_permalink() ?>"><div class="w-full horizontal-ratio bg-cover bg-center" style="background-image: url('<?= get_the_post_thumbnail_url() ?>')"></div></a>
             <a href="<?= get_permalink() ?>" class="font-body font-bold mt-4 no-underline block"><?= get_the_title(); ?></a>
             <?php endwhile; wp_reset_postdata(); ?>
         </div>

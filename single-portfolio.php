@@ -21,8 +21,8 @@ get_header();
 		<div class="bg-gray-200 w-full">
 			<div class="w-full lg:max-w-7xl mx-auto flex justify-center items-center py-2 px-4 flex-wrap">
 				<div class="flex justify-center rounded-3xl bg-white">
-					<div class="py-2 px-6 lg:px-8 rounded-3xl cursor-pointer" :class="{ 'bg-gray-400 text-white' : tabWorkDetail == 0 }" @click="tabWorkDetail = 0">Portofolio</div>
-					<div class="py-2 px-6 lg:px-8 rounded-3xl cursor-pointer" :class="{ 'bg-gray-400 text-white' : tabWorkDetail == 1 }" @click="tabWorkDetail = 1">About</div>
+					<div class="py-2 px-6 lg:px-8 rounded-3xl cursor-pointer" :class="{ 'bg-gray-800 text-white' : tabWorkDetail == 0 }" @click="tabWorkDetail = 0">Portofolio</div>
+					<div class="py-2 px-6 lg:px-8 rounded-3xl cursor-pointer" :class="{ 'bg-gray-800 text-white' : tabWorkDetail == 1 }" @click="tabWorkDetail = 1">About</div>
 				</div>
 			</div>
 		</div>
