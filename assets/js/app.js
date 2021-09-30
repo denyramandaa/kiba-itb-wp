@@ -66,19 +66,16 @@ new Vue({
             }, [])
         },
         getPaginate(idx) {
-            console.log('get paginate')
             let pages = this.paginate(this.portfolioData, this.postPerLoad)
             this.pageLength = pages.length
             return pages[idx]
         },
         getPaginateByCat(cat, idx) {
-            console.log('get paginate by cat')
             let pages = this.paginate(this.portfolioData.filter(d => d.terms.some(x => x.value === cat)), this.postPerLoad)
             this.pageLength = pages.length
             return pages[idx]
         },
         getPaginateByAlphabet(alp, idx) {
-            console.log('get paginate by alpha')
             let pages = this.paginate(this.portfolioData.filter(d => d.author.charAt(0).toUpperCase() == alp.toUpperCase()), this.postPerLoad)
             this.pageLength = pages.length
             return pages[idx]
@@ -176,7 +173,7 @@ new Vue({
             this.portfolio = []
             this.seeMoreIdx = 0
             setTimeout(function() {
-                if(_self.filterByProject === 'All') {
+                if(_self.filterByYear === 'All') {
                     _self.runFilter = 'none'
                     _self.portfolio = _self.getPaginate(0)
                 } else {
