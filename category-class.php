@@ -12,7 +12,7 @@ get_header();
 		</section>
 		<!-- end heading -->
 		<section class="work w-full lg:max-w-7xl mx-auto pt-12 flex justify-center items-center flex-wrap relative px-4 pb-24 lg:pb-40">
-			<div class="w-full flex justify-start items-center flex-wrap">
+			<div class="w-full flex justify-start items-start flex-wrap">
 				<?php
 				/* Start the Loop */
 				while ( have_posts() ) : the_post(); ?>

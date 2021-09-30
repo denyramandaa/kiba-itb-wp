@@ -16,19 +16,27 @@ $post_type_awards = get_post_type_object( 'awards' );
                     <div class="swiper-wrapper">
                         <?php foreach( $homepage_slider as $key => $value ): ?>
                         <div class="swiper-slide w-full flex flex-wrap">
-                            <div class="w-full lg:w-1/2 pr-8">
-                                <h2 class="font-bold text-4xl mb-4"><?= $value['slider_title'] ?></h2>
-                                <p class="font-bold text-lg mb-4"><?= $value['slider_subtitle'] ?></p>
-                                <p class="text-base">
-                                    <?= $value['slider_description'] ?>
-                                    <?php if(!empty($value['slider_url'])) : ?>
-                                        <a href="<?php echo $value['slider_url'] ?>">Read more</a>
-                                    <?php endif; ?>
-                                </p>
+                            <?php if($value['slider_full_banner'] === false) : ?>
+                                <div class="w-full lg:w-1/2 pr-8">
+                                    <h2 class="font-bold text-4xl mb-4"><?= $value['slider_title'] ?></h2>
+                                    <p class="font-bold text-lg mb-4"><?= $value['slider_subtitle'] ?></p>
+                                    <p class="text-base">
+                                        <?= $value['slider_description'] ?>
+                                        <?php if(!empty($value['slider_url'])) : ?>
+                                            <a href="<?php echo $value['slider_url'] ?>" target="_blank">Read more</a>
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
+                                <div class="w-full lg:w-1/2">
+                                    <img src="<?php echo $value['slider_image'] ?>" alt="image">
+                                </div>
+                            <?php else : ?>
+                            <div class="w-full">
+                                <a href="<?php echo $value['full_banner_url'] ?>" target="_blank">
+                                    <img src="<?php echo $value['slider_image'] ?>" alt="image">
+                                </a>
                             </div>
-                            <div class="w-full lg:w-1/2">
-                                <img src="<?php echo $value['slider_image'] ?>" alt="image">
-                            </div>
+                            <?php endif; ?>
                         </div>
                         <?php endforeach; ?>
                     </div>
@@ -46,6 +54,7 @@ $post_type_awards = get_post_type_object( 'awards' );
         <div class="masonry w-full lg:px-6">
             <div class="masonry-item" v-for="(item, key) in portfolio" :key="key">
                 <a :href="item.url"><img :src="item.thumb" :alt="item.author" class="masonry-content"></a>
+                <a :href="item.url" class="masonry-desc">{{ item.author }}</a>
             </div>
         </div>
         <a href="<?= get_post_type_archive_link( 'portfolio' ); ?>" class="font-text text-lg mt-16">See Portofolio Directory</a>
@@ -60,7 +69,7 @@ $post_type_awards = get_post_type_object( 'awards' );
             <h3 class="font-heading font-bold"><?= get_cat_name( get_cat_ID( 'class' ) ) ?></h3>
             <a href="<?= get_category_link( get_cat_ID( 'class' ) ) ?>">View All</a>
         </div>
-        <div class="flex justify-start items-center flex-wrap lg:flex-nowrap lg:px-4">
+        <div class="flex justify-start items-start flex-wrap lg:flex-nowrap lg:px-4">
             <?php 
                 $class = new WP_Query( array ('post_type' => 'post', 'order_by' => 'post_id', 'order' => 'DESC', 'category_name' => 'class', 'posts_per_page' => 4, 'post_status' => 'publish'));
                 while($class->have_posts()) : $class->the_post();
@@ -97,8 +106,8 @@ $post_type_awards = get_post_type_object( 'awards' );
                             <div class="w-full box-ratio bg-cover bg-center" style="background-image: url('<?= get_the_post_thumbnail_url() ?>')"></div>
                         </div>
                         <div class="w-1/2 flex flex-wrap items-center p-0 lg:p-4 ml-2 lg:ml-0">
-                            <p class="font-body font-bold mb-1"><?= get_the_title(); ?></p>
-                            <p class="font-body"><?= get_the_date( 'j M Y' ); ?></p>
+                            <p class="font-body font-bold mb-1 w-full"><?= get_the_title(); ?></p>
+                            <p class="font-body w-full"><?= get_the_date( 'j M Y' ); ?></p>
                         </div>
                     </div>
                 </a>

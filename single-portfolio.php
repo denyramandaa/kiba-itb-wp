@@ -60,11 +60,17 @@ get_header();
 			<div class="w-full lg:w-1/2 mb-8 lg:mb-0">
 				<div class="box-ratio bg-cover bg-center" style="background-image: url('<?= $about_image ?>')"></div>
 			</div>
-			<div class="w-full lg:w-1/2 lg:ml-24 flex flex-wrap">
-				<p class="font-text leading-relaxed"><?= $about_description ?></p>
-				<div class="mt-8 lg:mt-12">
-					<?= $about_social_link ?>
+			<div class="w-full lg:w-1/2 lg:ml-16 flex flex-wrap">
+				<p class="font-text leading-relaxed w-full"><?= $about_description ?></p>
+				<?php if($about_social_link) : ?>
+				<div class="mt-8 lg:mt-12 w-full">
+					<?php foreach( $about_social_link as $key => $value ): ?>
+						<div class="w-full block">
+							<a class="no-underline hover:underline" href="<?= $value['about_social_link_url'] ?>"><?= $value['about_social_link_label'] ?></a>
+						</div>
+					<?php endforeach; ?>
 				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</section>
