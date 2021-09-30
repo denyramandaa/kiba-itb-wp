@@ -18,7 +18,10 @@ new Vue({
         filterByYear: 'All',
         alphabets: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
         showAlphaFilter: false,
-        pickedAlpha: 'A'
+        pickedAlpha: 'A',
+        runFilter: 'none',
+        tax: '',
+        pcAlpha: ''
     },
     methods: {
         pickAlpha(alpha) {
@@ -28,8 +31,14 @@ new Vue({
         seeMore() {
             if(this.seeMoreIdx < this.pageLength-1) {
                 this.seeMoreIdx++
-                this.portfolio.push(this.getPaginate(this.seeMoreIdx)[0])
-                this.tempPortfolio.push(this.getPaginate(this.seeMoreIdx)[0])
+                if(this.runFilter === 'none') {
+                    this.portfolio.push(this.getPaginate(this.seeMoreIdx)[0])
+                }
+                else if(this.runFilter === 'alpha') {
+                    this.portfolio.push(this.getPaginateByAlphabet(this.pcAlpha, this.seeMoreIdx)[0])
+                } else {
+                    this.portfolio.push(this.getPaginateByCat(this.tax, this.seeMoreIdx)[0])
+                }
                 const _self = this
                 setTimeout(function() {
                     _self.renderingMasonry()
@@ -57,7 +66,20 @@ new Vue({
             }, [])
         },
         getPaginate(idx) {
+            console.log('get paginate')
             let pages = this.paginate(this.portfolioData, this.postPerLoad)
+            this.pageLength = pages.length
+            return pages[idx]
+        },
+        getPaginateByCat(cat, idx) {
+            console.log('get paginate by cat')
+            let pages = this.paginate(this.portfolioData.filter(d => d.terms.some(x => x.value === cat)), this.postPerLoad)
+            this.pageLength = pages.length
+            return pages[idx]
+        },
+        getPaginateByAlphabet(alp, idx) {
+            console.log('get paginate by alpha')
+            let pages = this.paginate(this.portfolioData.filter(d => d.author.charAt(0).toUpperCase() == alp.toUpperCase()), this.postPerLoad)
             this.pageLength = pages.length
             return pages[idx]
         },
@@ -126,7 +148,6 @@ new Vue({
             const _self = this
             if(this.portfolioData.length) {
                 this.portfolio = this.getPaginate(0)
-                this.tempPortfolio = this.getPaginate(0)
                 setTimeout(function() {
                     _self.renderingMasonry()
                 },200)
@@ -135,8 +156,16 @@ new Vue({
         filterByProject() {
             const _self = this
             this.portfolio = []
+            this.seeMoreIdx = 0
             setTimeout(function() {
-                _self.portfolio = _self.filterByProject === 'All' ? _self.tempPortfolio : _self.tempPortfolio.filter(d => d.terms.some(x => x.value === _self.filterByProject))
+                if(_self.filterByProject === 'All') {
+                    _self.runFilter = 'none'
+                    _self.portfolio = _self.getPaginate(0)
+                } else {
+                    _self.runFilter = 'tax'
+                    _self.tax = _self.filterByProject
+                    _self.portfolio = _self.getPaginateByCat(_self.filterByProject, 0)
+                }
                 setTimeout(function() {
                     _self.renderingMasonry()
                 },100)
@@ -145,8 +174,16 @@ new Vue({
         filterByYear() {
             const _self = this
             this.portfolio = []
+            this.seeMoreIdx = 0
             setTimeout(function() {
-                _self.portfolio = _self.filterByYear === 'All' ? _self.tempPortfolio : _self.tempPortfolio.filter(d => d.terms.some(x => x.value === _self.filterByYear))
+                if(_self.filterByProject === 'All') {
+                    _self.runFilter = 'none'
+                    _self.portfolio = _self.getPaginate(0)
+                } else {
+                    _self.runFilter = 'tax'
+                    _self.tax = _self.filterByYear
+                    _self.portfolio = _self.getPaginateByCat(_self.filterByYear, 0)
+                }
                 setTimeout(function() {
                     _self.renderingMasonry()
                 },100)
@@ -155,8 +192,11 @@ new Vue({
         pickedAlpha() {
             const _self = this
             _self.portfolio = []
+            this.seeMoreIdx = 0
             setTimeout(function() {
-                _self.portfolio = _self.tempPortfolio.filter(d => d.author.charAt(0).toUpperCase() == _self.pickedAlpha.toUpperCase())
+                _self.runFilter = 'alpha'
+                _self.pcAlpha = _self.pickedAlpha
+                _self.portfolio = _self.getPaginateByAlphabet(_self.pickedAlpha, 0)
                 setTimeout(function() {
                     _self.renderingMasonry()
                 },100)
