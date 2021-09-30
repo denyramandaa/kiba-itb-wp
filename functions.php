@@ -161,6 +161,13 @@ function getTerms($id) {
 	endforeach;
 	return $myterms;
 }
+function getAuthors($id) {
+	$terms = wp_get_post_terms( $id, array( 'authors' ) );
+	foreach ( $terms as $term ) :
+		$myterms = $term->name;
+	endforeach;
+	return $myterms;
+}
 
 function fetch_porto() {
 	global $post;
@@ -175,7 +182,7 @@ function fetch_porto() {
 	while($portfolio->have_posts()) : 
 		$portfolio->the_post();
 		$res[]  = [
-			'author'	=> get_field('portfolio_author'),
+			'author'	=> getAuthors(get_the_ID()),
 			'terms' 	=> getTerms(get_the_ID()),
 			'thumb'		=> get_the_post_thumbnail_url(),
 			'url'		=> get_the_permalink()

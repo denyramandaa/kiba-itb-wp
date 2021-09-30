@@ -6,8 +6,8 @@
  *
  * @package kiba_itb
  */
-
-$author = get_field('portfolio_author');
+$author = get_the_terms($post->ID, 'authors');
+$author_link = get_term_link($author[0]);
 $about_image = get_field('about_image');
 $about_description = get_field('about_description');
 $about_social_link = get_field('about_social_link');
@@ -17,7 +17,7 @@ get_header();
 
 	<!-- start heading -->
 	<section class="heading w-full mt-24 lg:mt-40">
-		<h2 class="font-heading font-bold text-4xl mb-6 text-center px-4"><?= $author ?></h2>
+		<h2 class="font-heading font-bold text-4xl mb-6 text-center px-4"><?= $author[0]->name ?></h2>
 		<div class="bg-gray-200 w-full">
 			<div class="w-full lg:max-w-7xl mx-auto flex justify-center items-center py-2 px-4 flex-wrap">
 				<div class="flex justify-center rounded-3xl bg-white">
@@ -28,6 +28,10 @@ get_header();
 		</div>
 	</section>
 	<!-- end heading -->
+
+	<div class="flex justify-center pt-16">
+		<a href="<?= $author_link ?>" class="no-underline bg-gray-200 rounded-xl text-lg py-2 px-12">See All Works</a>
+	</div>
 
 	<!-- start work -->
 	<section class="work w-full lg:max-w-7xl mx-auto pt-16 flex justify-center items-center flex-wrap relative px-4 pb-24 lg:pb-40" :class="{'hide':tabWorkDetail == 1}">

@@ -7,10 +7,12 @@ new Vue({
         tabWorkDetail: 0,
         portfolioData: [],
         seeMoreIdx: 0,
+        seeMoreIdxAuthor: 0,
         portfolio: [],
         tempPortfolio: [],
         postPerLoad: 1,
         pageLength: 0,
+        pageLengthAuthor: 0,
         categoriesByProject: [],
         categoriesByYear: [],
         filterType: 'year',
@@ -21,7 +23,9 @@ new Vue({
         pickedAlpha: 'A',
         runFilter: 'none',
         tax: '',
-        pcAlpha: ''
+        pcAlpha: '',
+        authorName: '',
+        portofolioByAuthor: []
     },
     methods: {
         pickAlpha(alpha) {
@@ -39,6 +43,16 @@ new Vue({
                 } else {
                     this.portfolio.push(this.getPaginateByCat(this.tax, this.seeMoreIdx)[0])
                 }
+                const _self = this
+                setTimeout(function() {
+                    _self.renderingMasonry()
+                },300)
+            }
+        },
+        seeMoreAuthorPost() {
+            if(this.seeMoreIdxAuthor < this.pageLengthAuthor-1) {
+                this.seeMoreIdxAuthor++
+                this.portofolioByAuthor.push(this.getPaginateByAuthor(this.authorName, this.seeMoreIdxAuthor)[0])
                 const _self = this
                 setTimeout(function() {
                     _self.renderingMasonry()
@@ -78,6 +92,11 @@ new Vue({
         getPaginateByAlphabet(alp, idx) {
             let pages = this.paginate(this.portfolioData.filter(d => d.author.charAt(0).toUpperCase() == alp.toUpperCase()), this.postPerLoad)
             this.pageLength = pages.length
+            return pages[idx]
+        },
+        getPaginateByAuthor(authorName, idx) {
+            let pages = this.paginate(this.portfolioData.filter(d => d.author.toUpperCase() === authorName.toUpperCase()), this.postPerLoad)
+            this.pageLengthAuthor = pages.length
             return pages[idx]
         },
         convertToRupiah(angka) {
@@ -144,7 +163,12 @@ new Vue({
         portfolioData() {
             const _self = this
             if(this.portfolioData.length) {
-                this.portfolio = this.getPaginate(0)
+                if(_self.$refs.authorName) {
+                    _self.authorName = this.$refs.authorName.value
+                    _self.portofolioByAuthor = _self.getPaginateByAuthor(_self.authorName, 0)
+                } else {
+                    this.portfolio = this.getPaginate(0)
+                }
                 setTimeout(function() {
                     _self.renderingMasonry()
                 },200)
