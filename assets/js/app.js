@@ -10,7 +10,7 @@ new Vue({
         seeMoreIdxAuthor: 0,
         portfolio: [],
         tempPortfolio: [],
-        postPerLoad: 1,
+        postPerLoad: 10,
         pageLength: 0,
         pageLengthAuthor: 0,
         categoriesByProject: [],
